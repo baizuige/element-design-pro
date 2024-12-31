@@ -1,6 +1,6 @@
 <template>
   <el-config-provider :size="elSize" :locale="locales[language]" :z-index="3000">
-    <router-view ></router-view>
+    <router-view class="w-full h-full"></router-view>
   </el-config-provider>
 </template>
 
@@ -20,8 +20,12 @@
   const language = computed(() => {
     return userStore.language
   })
-
 </script>
 
-<style scoped></style>
+<style scoped>
+  .el-input--large,
+  .el-button--large {
+    height: 46px;
+  }
+</style>
 

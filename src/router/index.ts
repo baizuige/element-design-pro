@@ -1,5 +1,12 @@
-import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
+import type { RouteRecordRaw, RouteLocationNormalized, NavigationGuardNext } from 'vue-router'
 import { useMenuStore } from '@/store/modules/menu'
+import { useUserStore } from '@/store/modules/user'
+
+type GuardParams = {
+  to: RouteLocationNormalized
+  next: NavigationGuardNext
+}
 
 type AppRouteRecordRaw = RouteRecordRaw & {
   hidden?: boolean
@@ -11,9 +18,19 @@ const routes: AppRouteRecordRaw[] = [
     redirect: '/home'
   },
   {
+    path: '/login',
+    name: 'Login',
+    meta: {
+      title: '登录',
+      title_en: 'Login',
+      isHideTab: true
+    },
+    component: () => import('@/views/user/login.vue')
+  },
+  {
     path: '/home',
     name: 'Home',
-    component: () => import('@/layout/home.vue'),
+    component: () => import('@/layout/home.vue')
     // children: [
     //   {
     //     path: '/dashboard',
@@ -41,9 +58,22 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _, next) => {
+  checkLogin({ to, next })
   useMenuStore().setMenuList(routes as [])
-  next()
 })
+
+function checkLogin({ to, next }: GuardParams) {
+  const userStore = useUserStore()
+  const { meta, path } = to
+  // 判断是否需要登录
+  const { noLogin } = meta
+  if (!userStore.isLogin && path !== '/login' && !noLogin) {
+    userStore.logout()
+    next('/login')
+  } else {
+    next()
+  }
+}
 
 export default router

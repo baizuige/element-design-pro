@@ -2,10 +2,12 @@ import { defineStore } from 'pinia'
 import { LanguageEnum } from '@/enums/appEnum'
 import type { UserInfoType } from '@/types/store'
 import { getSysStorage } from '@/utils/storage'
+import router from '@/router'
 
 interface UserState {
   // 语言
   language: LanguageEnum
+  isLogin: boolean
   info: Partial<UserInfoType>
 }
 
@@ -13,7 +15,8 @@ export const useUserStore = defineStore({
   id: 'userStore',
   state: (): UserState => ({
     language: LanguageEnum.ZH,
-    info: {}
+    info: {},
+    isLogin: false
   }),
   getters: {
     getUserInfo(): Partial<UserInfoType> {
@@ -25,9 +28,10 @@ export const useUserStore = defineStore({
       let sys = getSysStorage()
       if (sys) {
         sys = JSON.parse(sys)
-        const { info, language } = sys.user
+        const { info, isLogin, language } = sys.user
         this.info = info || {}
         this.language = language || LanguageEnum.ZH
+        this.isLogin = isLogin || false
       }
     },
     saveUserData() {
@@ -37,6 +41,14 @@ export const useUserStore = defineStore({
           language: this.language
         }
       })
+    },
+    logout() {
+      this.isLogin = false
+      this.info = {}
+      this.saveUserData()
+      // setTimeout(() => {
+      //   router.push('/login')
+      // }, 300)
     }
   }
 })

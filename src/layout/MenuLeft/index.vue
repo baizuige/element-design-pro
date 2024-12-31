@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import {useMenuStore} from "@/store/modules/menu"
-import {submenu } from './submenu.vue'
+import submenu  from './submenu.vue'
 const menuList = computed(() => {
   return useMenuStore().getMenuList
 })

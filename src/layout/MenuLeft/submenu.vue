@@ -4,11 +4,10 @@
       <template #title>
         <i
           class="menu-icon iconfont-sys"
-          :style="{ color: theme?.iconColor }"
-          v-html="item.meta.icon"
+          v-html="item.meta?.icon"
         ></i>
         <span class="menu-name">{{ getMenuTitle(item) }}</span>
-        <div class="badge" style="right: 35px" v-if="item.meta.showBadge"></div>
+        <!-- <div class="badge" style="right: 35px" v-if="item.meta.showBadge"></div> -->
       </template>
       <!-- 递归菜单 -->
       <submenu :list="item.children" :isMobile="isMobile" @close="closeMenu" :level="level + 1" />
@@ -33,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-  import { MenuListType } from '@/types/menu'
+  import type { MenuListType } from '@/types/menu'
   defineProps({
     list: { type: [Array] as PropType<MenuListType[]>, default: () => [] },
     isMobile: {
@@ -47,6 +46,25 @@
   })
 
   const router = useRouter()
+
+  function getMenuTitle(item: MenuListType) {
+    console.log(item)
+    return item.meta?.title
+  }
+
+  function goPage(item: MenuListType) {
+    let { link } = item.meta
+    if (link) {
+      window.open(link, '_blank')
+    } else {
+      router.push(item.path || item.meta.title)
+    }
+  }
+
+  const emit = defineEmits(['close'])
+  function closeMenu() {
+    emit('close')
+  }
 </script>
 
 <style scoped></style>
