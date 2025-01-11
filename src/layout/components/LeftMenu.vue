@@ -2,7 +2,7 @@
   <div class="left-menu">
     <div class="header" :class="{ 'header-collapse': collapse }">
       <img class="logo" src="@/assets/logo.svg" alt="" />
-      <p  class="logo-text">Element Design Pro</p>
+      <p class="logo-text">Element Design Pro</p>
     </div>
     <el-menu
       default-active="2"
@@ -50,7 +50,7 @@
 <script setup lang="ts">
 import { useSettingStore } from '@/stores/settingStore'
 const settingStore = useSettingStore()
-const collapse = computed(() => settingStore.menuOpen)
+const collapse = computed(() => !settingStore.menuOpen)
 </script>
 
 <style scoped lang="scss">

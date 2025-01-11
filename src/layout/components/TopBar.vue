@@ -5,7 +5,9 @@
         <el-icon :size="24"><ep-Operation color="#78829d" /></el-icon>
       </div>
       <div class="btn-box refresh-btn">
-        <el-icon class="refresh" :size="24"><ep-Refresh color="#78829d" /></el-icon>
+        <el-icon class="refresh" :size="24"
+          ><ep-Refresh color="#78829d"
+        /></el-icon>
       </div>
     </div>
     <div class="right">
@@ -49,7 +51,7 @@ function toggleMenu() {
       &.refresh-btn {
         &:hover {
           .refresh {
-            animation: rotate .5s;
+            animation: rotate 0.5s;
           }
         }
       }

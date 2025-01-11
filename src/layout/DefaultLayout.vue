@@ -1,5 +1,5 @@
 <template>
-  <div class="default-layout" >
+  <div class="default-layout">
     <LeftMenu />
     <div class="main-content">
       <TopMenu />

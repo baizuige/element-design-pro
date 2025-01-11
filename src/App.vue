@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { zhCn } from 'element-plus/es/locale/index.mjs';
+import { zhCn } from 'element-plus/es/locale/index.mjs'
 const defaultConfig = reactive({
   zIndex: 3000,
   size: 'default',
@@ -15,6 +15,4 @@ const defaultConfig = reactive({
 const { zIndex, size, local } = toRefs(defaultConfig)
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

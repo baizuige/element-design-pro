@@ -1,4 +1,3 @@
-
 export const useSettingStore = defineStore({
   id: 'settingStore',
   state: () => {
