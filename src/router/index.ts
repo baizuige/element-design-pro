@@ -15,7 +15,12 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/coc',
         name: 'coc',
-        component: () => import('@/views/CocHelper.vue')
+        component: () => import('@/views/COC/CocHelper.vue')
+      },
+      {
+        path: '/coc-upgrade',
+        name: 'coc-progress',
+        component: () => import('@/views/COC/UpgradeHelper.vue')
       }
     ]
   }

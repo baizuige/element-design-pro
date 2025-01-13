@@ -20,25 +20,25 @@ export default defineConfig({
     AutoImport({
       imports: ['vue', 'vue-router', 'pinia'],
       resolvers: [ElementPlusResolver()],
-      dts: 'src/types/auto-imports.d.ts',
+      dts: 'src/types/auto-imports.d.ts'
     }),
     Components({
       resolvers: [
         ElementPlusResolver(),
         IconsResolver({
           prefix: '',
-          enabledCollections: ['ep'],
-        }),
+          enabledCollections: ['ep']
+        })
       ],
-      dts: 'src/types/components.d.ts',
+      dts: 'src/types/components.d.ts'
     }),
     Icons({
-      autoInstall: true,
-    }),
+      autoInstall: true
+    })
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
-  },
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  }
 })

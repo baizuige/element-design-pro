@@ -2,15 +2,21 @@
   <div class="top-bar">
     <div class="left">
       <div class="btn-box" @click="toggleMenu">
-        <el-icon :size="24"><ep-Operation color="#78829d" /></el-icon>
+        <el-icon :size="24"><ep-Operation /></el-icon>
       </div>
       <div class="btn-box refresh-btn">
-        <el-icon class="refresh" :size="24"
-          ><ep-Refresh color="#78829d"
-        /></el-icon>
+        <el-icon class="refresh" :size="24"><ep-Refresh /></el-icon>
       </div>
     </div>
     <div class="right">
+      <el-switch v-model="isDark">
+        <template #active-action>
+          <el-icon><ep-Moon /></el-icon>
+        </template>
+        <template #inactive-action>
+          <el-icon><ep-Sunny /></el-icon>
+        </template>
+      </el-switch>
       <el-avatar
         src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       />
@@ -24,6 +30,10 @@ const settingStore = useSettingStore()
 function toggleMenu() {
   settingStore.toggleMenu()
 }
+const isDark = ref(settingStore.isDark)
+watch(isDark, () => {
+  settingStore.toggleTheme()
+})
 </script>
 
 <style scoped lang="scss">
@@ -46,7 +56,8 @@ function toggleMenu() {
       margin-right: 10px;
       cursor: pointer;
       &:hover {
-        background-color: #f5f5f5;
+        color: var(--el-color-primary);
+        background-color: var(--el-bg-color-overlay);
       }
       &.refresh-btn {
         &:hover {
@@ -56,6 +67,10 @@ function toggleMenu() {
         }
       }
     }
+  }
+  .right {
+    display: flex;
+    align-items: center;
   }
 }
 @keyframes rotate {

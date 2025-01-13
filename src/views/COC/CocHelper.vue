@@ -4,11 +4,11 @@
       <template #header>
         <div class="card-header">
           <span>{{ item.name }}</span>
-          <el-popover :width="400" trigger="click">
+          <el-popover :width="460" trigger="click">
             <template #reference>
               <el-button type="primary" link>详情</el-button>
             </template>
-            <el-table border stripe :data="item.upgradeList" height="400px">
+            <el-table border stripe :data="item.upgradeList" height="460px">
               <el-table-column
                 width="60"
                 align="center"
@@ -26,31 +26,58 @@
                 align="center"
                 property="time"
                 label="升级时间"
-              />
+              >
+                <template #default="{ row }">
+                  <span v-if="row.time < 60">{{ row.time }} 秒</span>
+                  <span v-else-if="row.time < 3600"
+                    >{{ row.time / 60 }} 分钟</span
+                  >
+                  <span v-else-if="row.time < 86400"
+                    >{{ row.time / 3600 }} 小时</span
+                  >
+                  <span v-else
+                    >{{ Math.floor(row.time / 86400) }}天
+                    <span v-if="row.time % 86400 > 0"
+                      >{{ Math.floor((row.time % 86400) / 3600) }} 小时</span
+                    >
+                  </span>
+                </template>
+              </el-table-column>
               <el-table-column
                 width="100"
                 align="center"
                 property="townLevel"
                 label="大本营等级要求"
               />
+              <el-table-column width="60" align="center" label="操作">
+                <template #default="{ row }">
+                  <el-button
+                    type="primary"
+                    link
+                    @click="addToUpGradeList(row, item.id)"
+                    >升级</el-button
+                  >
+                </template>
+              </el-table-column>
             </el-table>
           </el-popover>
         </div>
       </template>
-      <img
-        src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-        style="width: 100%"
-      />
+      <img :src="item.imgUrl" style="width: 100%" />
     </el-card>
   </div>
 </template>
 
 <script setup lang="ts">
+import { dayjs } from 'element-plus'
+
 const buildList = [
   {
     type: 1, // 1: 防御建筑
     name: '加农炮',
     id: 1,
+    imgUrl:
+      'https://raw.githubusercontent.com/baizuige/picbed/master/picture/202501131632327.png',
     upgradeList: [
       {
         level: 1,
@@ -182,6 +209,21 @@ const buildList = [
     ]
   }
 ]
+
+function addToUpGradeList(item: any, id: number) {
+  const info = buildList.find((item) => item.id === id)
+  const cocUpgradeList = JSON.parse(
+    localStorage.getItem('cocUpgradeList') || '[]'
+  )
+  cocUpgradeList.push({
+    id,
+    img: info?.imgUrl,
+    name: info?.name,
+    level: item.level,
+    time: dayjs().add(item.time, 'second').format('YYYY-MM-DD HH:mm:ss')
+  })
+  localStorage.setItem('cocUpgradeList', JSON.stringify(cocUpgradeList))
+}
 </script>
 
 <style scoped lang="scss">

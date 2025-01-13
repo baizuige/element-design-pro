@@ -5,28 +5,20 @@
       <p class="logo-text">Element Design Pro</p>
     </div>
     <el-menu
-      default-active="2"
+      default-active="coc"
       :collapse="collapse"
       class="el-menu-vertical-demo"
+      router
     >
       <el-sub-menu index="1">
         <template #title>
           <el-icon>
             <ep-location />
           </el-icon>
-          <span>Navigator One</span>
+          <span>COC 助手</span>
         </template>
-        <el-menu-item-group title="Group One">
-          <el-menu-item index="1-1">item one</el-menu-item>
-          <el-menu-item index="1-2">item two</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="Group Two">
-          <el-menu-item index="1-3">item three</el-menu-item>
-        </el-menu-item-group>
-        <el-sub-menu index="1-4">
-          <template #title>item four</template>
-          <el-menu-item index="1-4-1">item one</el-menu-item>
-        </el-sub-menu>
+        <el-menu-item index="coc">数据查询</el-menu-item>
+        <el-menu-item index="coc-upgrade">升级助手</el-menu-item>
       </el-sub-menu>
       <el-menu-item index="2">
         <el-icon><ep-menu /></el-icon>
@@ -55,7 +47,6 @@ const collapse = computed(() => !settingStore.menuOpen)
 
 <style scoped lang="scss">
 .left-menu {
-  background-color: #fff;
   .header {
     height: 60px;
     display: flex;
@@ -67,7 +58,7 @@ const collapse = computed(() => !settingStore.menuOpen)
     p {
       font-size: 18px;
       margin-left: 8px;
-      color: #252f4a;
+      // color: #252f4a;
     }
     &.header-collapse {
       padding: 0 20px;

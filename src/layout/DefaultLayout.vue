@@ -20,7 +20,7 @@ import TopMenu from './components/TopBar.vue'
   display: flex;
   flex-direction: row;
   height: 100vh;
-  background-color: #fafbfc;
+  // background-color: #fafbfc;
   .main-content {
     flex: 1;
     display: flex;
@@ -29,7 +29,7 @@ import TopMenu from './components/TopBar.vue'
     &-view {
       flex: 1;
       margin: 20px 30px;
-      background-color: #fff;
+      // background-color: #fff;
       overflow-y: auto;
       border-radius: 5px;
     }
