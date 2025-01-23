@@ -5,7 +5,7 @@
       <p class="logo-text">Element Design Pro</p>
     </div>
     <el-menu
-      default-active="coc"
+      :default-active="defaultActive"
       :collapse="collapse"
       class="el-menu-vertical-demo"
       router
@@ -43,6 +43,15 @@
 import { useSettingStore } from '@/stores/settingStore'
 const settingStore = useSettingStore()
 const collapse = computed(() => !settingStore.menuOpen)
+const defaultActive = ref('1')
+const router = useRouter()
+watch(
+  () => router.currentRoute.value.path,
+  (val) => {
+    defaultActive.value = val
+  },
+  { immediate: true }
+)
 </script>
 
 <style scoped lang="scss">

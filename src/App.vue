@@ -13,6 +13,11 @@ const defaultConfig = reactive({
 })
 
 const { zIndex, size, local } = toRefs(defaultConfig)
+onMounted(() => {
+  Notification.requestPermission((result) => {
+    console.log(result)
+  })
+})
 </script>
 
 <style scoped></style>

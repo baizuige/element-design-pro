@@ -220,7 +220,8 @@ function addToUpGradeList(item: any, id: number) {
     img: info?.imgUrl,
     name: info?.name,
     level: item.level,
-    time: dayjs().add(item.time, 'second').format('YYYY-MM-DD HH:mm:ss')
+    finishTime: dayjs().add(item.time, 'second').format('YYYY-MM-DD HH:mm:ss'),
+    time: item.time
   })
   localStorage.setItem('cocUpgradeList', JSON.stringify(cocUpgradeList))
 }
