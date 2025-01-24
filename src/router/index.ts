@@ -23,6 +23,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/COC/UpgradeHelper.vue')
       }
     ]
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/Login.vue')
   }
 ]
 const router = createRouter({
